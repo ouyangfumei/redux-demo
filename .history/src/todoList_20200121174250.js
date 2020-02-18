@@ -8,11 +8,10 @@ import store from './store'
 class TodoList extends Component {
     constructor(props) {
         super(props)
+        //关键代码-----------start
         this.state = store.getState();
-        //----------关键代码-----------start
-        this.storeChange = this.storeChange.bind(this)  //转变this指向
-        store.subscribe(this.storeChange) //订阅Redux的状态
-        //----------关键代码-----------end
+        //关键代码-----------end
+        // console.log(this.state)
     }
     changeInputValue(e) {
         const action = {
@@ -22,16 +21,15 @@ class TodoList extends Component {
         store.dispatch(action)
     }
     onAdd() {
-        const action = { type: 'addItem' }
-        store.dispatch(action)
+        this.storeChange();
     }
     storeChange() {
-        this.setState(store.getState())
-    }
-    componentDidMount() {
-        axios.get('https://www.easy-mock.com/mock/5cfcce489dc7c36bd6da2c99/xiaojiejie/getList').then((res) => {
-            console.log(res)
-        })
+        let storeVal = store.getState();
+        let hisList = storeVal.list;
+        console.log(storeVal.list.push(storeVal.inputValue))
+        this.setState({
+            list: storeVal.list.push(storeVal.inputValue)
+        });
     }
     render() {
         return (

@@ -8,30 +8,13 @@ import store from './store'
 class TodoList extends Component {
     constructor(props) {
         super(props)
+        //关键代码-----------start
         this.state = store.getState();
-        //----------关键代码-----------start
-        this.storeChange = this.storeChange.bind(this)  //转变this指向
-        store.subscribe(this.storeChange) //订阅Redux的状态
-        //----------关键代码-----------end
+        //关键代码-----------end
+        console.log(this.state)
     }
     changeInputValue(e) {
-        const action = {
-            type: 'changeInput',
-            value: e.target.value
-        }
-        store.dispatch(action)
-    }
-    onAdd() {
-        const action = { type: 'addItem' }
-        store.dispatch(action)
-    }
-    storeChange() {
-        this.setState(store.getState())
-    }
-    componentDidMount() {
-        axios.get('https://www.easy-mock.com/mock/5cfcce489dc7c36bd6da2c99/xiaojiejie/getList').then((res) => {
-            console.log(res)
-        })
+        console.log(e.target.value)
     }
     render() {
         return (
@@ -42,7 +25,7 @@ class TodoList extends Component {
                         placeholder={this.state.inputValue}
                         style={{ width: '250px', marginRight: '10px' }}
                         onChange={this.changeInputValue.bind(this)}/>
-                    <Button type="primary" onClick={this.onAdd.bind(this)}>增加</Button>
+                    <Button type="primary">增加</Button>
                 </div>
                 <div style={{ margin: '10px', width: '300px' }}>
                     <List

@@ -12,11 +12,5 @@ export default (state = defaultState, action) => {
         newState.inputValue = action.value
         return newState
     }
-    if (action.type === 'addItem') { //根据type值，编写业务逻辑
-        let newState = JSON.parse(JSON.stringify(state))
-        newState.list.push(newState.inputValue)  //push新的内容到列表中去
-        newState.inputValue = ''
-        return newState
-    }
     return state;
 }
